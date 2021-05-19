@@ -26,6 +26,10 @@ export class SlotController {
     this.resetCount();
     let availableSlots: string[] = [];
 
+    /*
+      Count reservations per time slot
+      Return time slots whose reservation count is less than capacity
+    */  
     try {
       logger.debug({ path: 'slots', method: 'get', incomingDate: req.query.date });
       const reservations = await Reservation.findAll({
