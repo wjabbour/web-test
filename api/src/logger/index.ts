@@ -14,7 +14,7 @@ import winston from "winston";
   How are our compute instances performing in one AZ vs another?
 
 */
-export const logger =  winston.createLogger({
+export default winston.createLogger({
   level: 'info',
   transports: [
     new winston.transports.Console()

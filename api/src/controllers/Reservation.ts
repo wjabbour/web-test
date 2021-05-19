@@ -1,10 +1,18 @@
 import { Controller, Post } from '@overnightjs/core'
 import { Request, Response } from 'express'
-import { logger } from '../logger';
 import { Reservation } from '../models/Reservation';
+import winston from "winston";
+import * as logger from '../logger/index';
+
 
 @Controller('reservation')
 export class ReservationController {
+
+  private logger: winston.Logger;
+  constructor () {
+    this.logger = logger.default;
+  }
+
   @Post('')
   private async post (req: Request, res: Response) {
     const startTime = Date.now();
@@ -13,10 +21,10 @@ export class ReservationController {
 
     try {
       await entry.save();
-      logger.info({ path: 'reservation', method: 'post', duration: Date.now() - startTime });
+      this.logger.info({ path: 'reservation', method: 'post', duration: Date.now() - startTime });
       return res.sendStatus(200);
     } catch (e) {
-      logger.error({ path: 'reservation', method: 'post', duration: Date.now() - startTime, error: e.message });
+      this.logger.error({ path: 'reservation', method: 'post', duration: Date.now() - startTime, error: e.message });
       return res.status(500).json({ error: e.message });
     }
   }
