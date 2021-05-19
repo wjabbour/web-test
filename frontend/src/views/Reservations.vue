@@ -13,12 +13,8 @@
     <input type="date" v-model="myDate" v-on:change="findSlots"/>
 
     <select v-model="selected">
-      <option disabled value="">Please select</option>
-      <option>5:00</option>
-      <option>5:15</option>
-      <option>5:30</option>
-      <option>5:45</option>
-      <option>6:00</option>
+      <option disabled value="">Please Select</option>
+      <option v-for="slot in slots" :key='slot'>{{ slot }}</option>
     </select>
     <span> Time Slot </span>
   </div>
@@ -35,19 +31,21 @@ export default {
       email: '',
       selected: '',
       myDate: '',
+      slots: [],
       guests: 0
     }
   },
   methods: {
     findSlots: async function () {
       try {
-      await axios({
-        method: 'get',
-        url: 'http://localhost:9090/slots',
-        params: {
-          date: this.myDate
-        }
-      });
+        const slots = await axios({
+          method: 'get',
+          url: 'http://localhost:9090/slots',
+          params: {
+            date: this.myDate
+          }
+        });
+        this.slots = slots.data;
     } catch (error) {
       console.error(error)
     }

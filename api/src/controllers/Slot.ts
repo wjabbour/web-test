@@ -40,7 +40,7 @@ export class SlotController {
       availableSlots = availableSlots.concat(slots);
     });
 
-    return res.sendStatus(200);
+    return res.status(200).json(availableSlots);
   }
 
   private determineSlots (start: string, end: string, capacity: number): string[] {
