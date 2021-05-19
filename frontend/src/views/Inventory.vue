@@ -12,6 +12,12 @@
 
 
     <button v-on:click="create">Create</button>
+
+    <li v-for="i in inventory" :key="i.id">
+      {{ i.start }}
+      {{ i.end }}
+      {{ i.capacity }}
+    </li>
   </div>
 </template>
 
@@ -30,11 +36,13 @@ export default {
   },
   async mounted () {
     try {
-      await axios({
+      const res = await axios({
         method: 'get',
         url: 'http://localhost:9090/inventory',
         headers: {},
       });
+
+      this.inventory = res.data;
     } catch (error) {
       console.error(error)
     }
