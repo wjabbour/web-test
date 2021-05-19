@@ -23,7 +23,10 @@ export class Reservation extends Model<Reservation> {
   size: number
 
   @Column
-  dateTime: Date;
+  date: Date;
+
+  @Column
+  time: string
 
   @DeletedAt
   deleted_at: string

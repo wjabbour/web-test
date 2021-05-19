@@ -10,7 +10,7 @@
     </select>
     <span> guest(s)</span>
 
-    <input type="date" v-model="mydate"/>
+    <input type="date" v-model="myDate" v-on:change="findSlots"/>
 
     <select v-model="selected">
       <option disabled value="">Please select</option>
@@ -34,8 +34,23 @@ export default {
       name: '',
       email: '',
       selected: '',
-      mydate: '',
+      myDate: '',
       guests: 0
+    }
+  },
+  methods: {
+    findSlots: async function () {
+      try {
+      await axios({
+        method: 'get',
+        url: 'http://localhost:9090/slots',
+        params: {
+          date: this.myDate
+        }
+      });
+    } catch (error) {
+      console.error(error)
+    }
     }
   },
   async mounted() {
@@ -47,7 +62,8 @@ export default {
         data: {
           name: "Turner",
           email: "doubleujabbour@gmail.com",
-          dateTime: "12/14/1992 21:30",
+          date: "05/19/2021",
+          time: '5:15',
           size: 2
         }
       });
