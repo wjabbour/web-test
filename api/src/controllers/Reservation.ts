@@ -10,6 +10,7 @@ export class ReservationController {
     const startTime = Date.now();
     const reservation = req.body;
     const entry = Reservation.build({ ...reservation });
+
     try {
       await entry.save();
       logger.info({ path: 'reservation', method: 'post', duration: Date.now() - startTime });

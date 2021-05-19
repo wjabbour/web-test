@@ -32,6 +32,7 @@ export class SlotController {
     */  
     try {
       logger.debug({ path: 'slots', method: 'get', incomingDate: req.query.date });
+
       const reservations = await Reservation.findAll({
         where: {
           date: {
@@ -42,8 +43,10 @@ export class SlotController {
       });
 
       logger.debug({ path: 'slots', method: 'get', reservations });
+
       this.countReservations(reservations);
       const inventory = await Inventory.findAll({ raw: true });
+
       logger.debug({ path: 'slots', method: 'get', inventory });
 
       inventory.forEach((inv) => {
@@ -53,6 +56,7 @@ export class SlotController {
   
       logger.debug({ path: 'slots', method: 'get', availableSlots });
       logger.info({ path: 'slots', method: 'get', duration: Date.now() - startTime });
+
       return res.status(200).json(availableSlots);
     } catch (e) {
       logger.error({ path: 'slots', method: 'get', duration: Date.now() - startTime, error: e.message });
@@ -62,6 +66,7 @@ export class SlotController {
 
   private determineSlots (start: string, end: string, capacity: number): string[] {
     const availableSlots = [];
+
     for (let i = parseInt(start[0]); i < parseInt(end[0]); i++) {
       minutes.forEach((minute) => {
         if (reservationCount[`${i}:${minute}`] < capacity) availableSlots.push(`${i}:${minute}`);
@@ -69,7 +74,6 @@ export class SlotController {
     }
 
     logger.debug({ path: 'slots', method: 'get', start, end, capacity, availableSlots });
-
     return availableSlots;
   }
 
@@ -77,6 +81,7 @@ export class SlotController {
     reservations.forEach((reservation) => {
       reservationCount[reservation['time']]++;
     });
+
     logger.debug({ path: 'slots', method: 'get', reservationCount });
   }
 
