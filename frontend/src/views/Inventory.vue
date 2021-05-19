@@ -19,13 +19,24 @@
 import axios from 'axios'
 
 export default {
-  
   name: 'Inventory',
   data() {
     return {
       start: '',
       end: '',
-      capacity: 0
+      capacity: 0,
+      inventory: []
+    }
+  },
+  async mounted () {
+    try {
+      await axios({
+        method: 'get',
+        url: 'http://localhost:9090/inventory',
+        headers: {},
+      });
+    } catch (error) {
+      console.error(error)
     }
   },
   methods: {
