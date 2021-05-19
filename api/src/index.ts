@@ -1,9 +1,12 @@
 require('source-map-support/register')
-import { Sequelize } from 'sequelize-typescript'
+const Sequelize = require('sequelize');
 import { RouterServer } from './RouterServer'
 import * as models from './models'
+import { Reservation } from './models/Reservation';
+import { Restaurant } from './models';
 
-;(async () => {
+
+(async () => {
   new RouterServer().start(8080)
 
   const sequelize = new Sequelize(process.env.DATABASE_CONNECTION_STRING, {
@@ -12,8 +15,20 @@ import * as models from './models'
     models: Object.keys(models).map(k => models[k]),
   })
 
+  Reservation.init({
+    name: Sequelize.STRING,
+    email: Sequelize.STRING,
+    dateTime: Sequelize.DATE,
+    size: Sequelize.INTEGER,
+  },
+  { sequelize,
+    modelName: 'reservations',
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at'
+  });
+
   await sequelize.sync({
     alter: true
-  })
-
+  });
 })()
