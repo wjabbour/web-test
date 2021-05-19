@@ -1,7 +1,7 @@
-import { Op } from "sequelize/types";
 import { Reservation } from "../models/Reservation";
 import * as logger from '../logger/index';
 import winston from "winston";
+const Op = require('sequelize')
 
 
 const hours = ['5', '6', '7', '8', '9'];
