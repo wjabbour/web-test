@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 import { RouterServer } from './RouterServer'
 import * as models from './models'
 import { Reservation } from './models/Reservation';
-import { Restaurant } from './models';
+import { Inventory } from './models/Inventory';
 
 
 (async () => {
@@ -23,6 +23,18 @@ import { Restaurant } from './models';
   },
   { sequelize,
     modelName: 'reservations',
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at'
+  });
+
+  Inventory.init({
+    start: Sequelize.STRING,
+    end: Sequelize.STRING,
+    capacity: Sequelize.INTEGER,
+  },
+  { sequelize,
+    modelName: 'inventories',
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     deletedAt: 'deleted_at'

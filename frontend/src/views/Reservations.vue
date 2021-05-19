@@ -40,7 +40,17 @@ export default {
   },
   async mounted() {
     try {
-      await axios.get('http://localhost:9090/test')
+      await axios({
+        method: 'post',
+        url: 'http://localhost:9090/reservation',
+        headers: {}, 
+        data: {
+          name: "Turner",
+          email: "doubleujabbour@gmail.com",
+          dateTime: "12/14/1992 21:30",
+          size: 2
+        }
+      });
     } catch (error) {
       console.error(error)
     }

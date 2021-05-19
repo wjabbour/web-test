@@ -5,7 +5,7 @@ import { Reservation } from '../models/Reservation';
 @Controller('reservation')
 export class ReservationController {
   @Post('')
-  private async get(req: Request, res: Response) {
+  private async post(req: Request, res: Response) {
     const reservation = req.body;
     const entry = Reservation.build({ ...reservation });
     await entry.save();
