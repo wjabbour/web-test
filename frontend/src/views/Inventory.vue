@@ -13,11 +13,14 @@
 
     <button v-on:click="create">Create</button>
 
-    <li v-for="i in inventory" :key="i.id">
-      {{ i.start }}
-      {{ i.end }}
-      {{ i.capacity }}
-    </li>
+    <div>
+      <p>Current Inventory</p>
+      <li v-for="i in inventory" :key="i.id">
+        {{ i.start }}
+        {{ i.end }}
+        {{ i.capacity }}
+      </li>
+    </div>
   </div>
 </template>
 
