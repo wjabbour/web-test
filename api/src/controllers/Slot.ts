@@ -40,7 +40,6 @@ export class SlotController {
       availableSlots = availableSlots.concat(slots);
     });
 
-    console.log(availableSlots);
     return res.sendStatus(200);
   }
 
