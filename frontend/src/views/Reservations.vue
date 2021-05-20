@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Athena Grill</h1>
+
     <select v-model="guests">
       <option disabled value="">Please select</option>
       <option>1</option>
@@ -8,18 +9,22 @@
       <option>3</option>
       <option>4</option>
     </select>
-    <span> guest(s)</span>
+    <p>Guest(s)</p>
 
     <input type="date" v-model="myDate" v-on:change="findSlots"/>
+    <p>Date</p>
 
-    <input v-model="email">Enter Email
-    <input v-model="name">Enter Name
+    <input v-model="email">
+    <p>Email</p>
+
+    <input v-model="name">
+    <p>Name</p>
 
     <select v-model="time">
       <option disabled value="">Please Select</option>
       <option v-for="slot in slots" :key='slot'>{{ slot }}</option>
     </select>
-    <span> Time Slot </span>
+    <p>Time Slot</p>
 
     <button v-on:click="placeReservation">Place Reservation</button>
   </div>
@@ -75,3 +80,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+  p {
+    margin-top: 10px;
+    margin-bottom: 26px;
+  }
+</style>

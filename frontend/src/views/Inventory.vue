@@ -2,27 +2,22 @@
   <div>
     <h1>Inventory</h1>
     <input v-model="start">
-    <p>Start</p>
+    <p>Start Time</p>
 
     <input v-model="end">
-    <p>End</p>
+    <p>End Time</p>
 
     <input v-model="capacity">
     <p>Capacity</p>
-
-
     <button v-on:click="create">Create</button>
-
-    <div>
-      <input type="date" v-model="myDate" v-on:change="getInventory"/>
+  
+    <div class="available-inventory-container">
       <p>Available Inventory</p>
+      <input type="date" v-model="myDate" v-on:change="getInventory"/>
       <li v-for="i in inventory" :key='i.start + i.end + i.capacity' >
-        {{ i.start }}
-        {{ i.end }}
-        {{ i.capacity }}
+        {{ i.start }} - {{ i.end }}
         <div v-for="c in i.reserveCapacities" :key="c.time">
-          {{ c.time }}
-          {{ c.reserveCapacity }}
+          {{ c.time }} - {{ c.reserveCapacity }} parties
         </div>
       </li>
     </div>
@@ -78,3 +73,20 @@ export default {
   }
 }
 </script>
+<style scoped lang="scss">
+
+  p {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  li {
+    padding-top: 10px;
+  }
+
+  .available-inventory-container {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid lightgrey;
+  }
+</style>
