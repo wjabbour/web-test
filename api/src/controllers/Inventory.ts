@@ -37,7 +37,7 @@ export class InventoryController {
 
     try {
       const inventory = await Inventory.findAll({ raw: true });
-      this.counter.countReservations(req.query.date);
+      await this.counter.countReservations(req.query.date);
 
       // holds information about each inventory as well as the reserve capacities
       const inventoryData = [];
