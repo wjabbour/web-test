@@ -56,6 +56,7 @@ export default {
             capacity: this.capacity
           }
         });
+        await this.getInventory()
       } catch (error) {
         console.error(error)
       }
@@ -66,10 +67,9 @@ export default {
           method: 'get',
           url: 'http://localhost:9090/inventory',
           params: {
-            date: this.myDate,
+            date: this.myDate || new Date().toString(),
           }
         });
-      
         this.inventory = res.data;
       } catch (error) {
         console.error(error)
