@@ -12,11 +12,16 @@
 
     <input type="date" v-model="myDate" v-on:change="findSlots"/>
 
+    <input v-model="email">Enter Email
+    <input v-model="name">Enter Name
+
     <select v-model="selected">
       <option disabled value="">Please Select</option>
       <option v-for="slot in slots" :key='slot'>{{ slot }}</option>
     </select>
     <span> Time Slot </span>
+
+    <button v-on:click="placeReservation">Place Reservation</button>
   </div>
 </template>
 
@@ -36,6 +41,23 @@ export default {
     }
   },
   methods: {
+    placeReservation: async function () {
+      try {
+        await axios({
+          method: 'post',
+          url: 'http://localhost:9090/reservation',
+          data: {
+            name: this.name,
+            email: this.email,
+            date: this.myDate,
+            time: this.time,
+            size: this.size
+          }
+        });
+      } catch (error) {
+        console.error(error)
+      }
+    },
     findSlots: async function () {
       try {
         const slots = await axios({
@@ -49,24 +71,6 @@ export default {
     } catch (error) {
       console.error(error)
     }
-    }
-  },
-  async mounted() {
-    try {
-      await axios({
-        method: 'post',
-        url: 'http://localhost:9090/reservation',
-        headers: {}, 
-        data: {
-          name: "Turner",
-          email: "doubleujabbour@gmail.com",
-          date: "05/19/2021",
-          time: '5:15',
-          size: 2
-        }
-      });
-    } catch (error) {
-      console.error(error)
     }
   }
 }
