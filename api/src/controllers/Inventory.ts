@@ -53,7 +53,6 @@ export class InventoryController {
         });
       });
 
-      console.log(inventoryData);
       this.logger.info({ path: 'inventory', method: 'get', duration: Date.now() - startTime });
       return res.status(200).json(inventoryData);
     } catch (e) {
@@ -75,7 +74,6 @@ export class InventoryController {
       });
     }
 
-    console.log(reserveCounts)
     this.logger.debug({ path: 'slots', method: 'get', start, end, capacity, reserveCounts });
     return reserveCounts;
   }
