@@ -41,7 +41,7 @@ export class Counter {
     return this.reservationCount[key] < capacity;
   }
 
-  reserveCount (key: string, capacity): number {
+  reserveCount (key: string, capacity: number): number {
     return capacity - this.reservationCount[key];
   }
 
