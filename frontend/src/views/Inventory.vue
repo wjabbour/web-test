@@ -14,11 +14,16 @@
     <button v-on:click="create">Create</button>
 
     <div>
-      <p>Current Inventory</p>
-      <li v-for="i in inventory" :key="i.id">
+      <input type="date" v-model="myDate" v-on:change="getInventory"/>
+      <p>Available Inventory</p>
+      <li v-for="i in inventory" :key='i.start + i.end + i.capacity' >
         {{ i.start }}
         {{ i.end }}
         {{ i.capacity }}
+        <div v-for="c in i.reserveCapacities" :key="c.time">
+          {{ c.time }}
+          {{ c.reserveCapacity }}
+        </div>
       </li>
     </div>
   </div>
@@ -34,20 +39,8 @@ export default {
       start: '',
       end: '',
       capacity: 0,
-      inventory: []
-    }
-  },
-  async mounted () {
-    try {
-      const res = await axios({
-        method: 'get',
-        url: 'http://localhost:9090/inventory',
-        headers: {},
-      });
-
-      this.inventory = res.data;
-    } catch (error) {
-      console.error(error)
+      inventory: [],
+      myDate: ''
     }
   },
   methods: {
@@ -63,6 +56,21 @@ export default {
             capacity: this.capacity
           }
         });
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    getInventory: async function () {
+      try {
+        const res = await axios({
+          method: 'get',
+          url: 'http://localhost:9090/inventory',
+          params: {
+            date: this.myDate,
+          }
+        });
+      
+        this.inventory = res.data;
       } catch (error) {
         console.error(error)
       }
