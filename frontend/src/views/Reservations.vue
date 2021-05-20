@@ -15,7 +15,7 @@
     <input v-model="email">Enter Email
     <input v-model="name">Enter Name
 
-    <select v-model="selected">
+    <select v-model="time">
       <option disabled value="">Please Select</option>
       <option v-for="slot in slots" :key='slot'>{{ slot }}</option>
     </select>
@@ -34,10 +34,10 @@ export default {
     return {
       name: '',
       email: '',
-      selected: '',
       myDate: '',
       slots: [],
-      guests: 0
+      guests: 0,
+      time: ''
     }
   },
   methods: {

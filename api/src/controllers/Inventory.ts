@@ -52,7 +52,6 @@ export class InventoryController {
           reserveCapacities: slots
         });
       });
-
       this.logger.info({ path: 'inventory', method: 'get', duration: Date.now() - startTime });
       return res.status(200).json(inventoryData);
     } catch (e) {

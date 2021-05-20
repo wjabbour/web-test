@@ -21,9 +21,7 @@ export class Counter {
     this.resetCount();
     const reservations = await Reservation.findAll({
       where: {
-        date: {
-          [Op.eq]: date,
-        }
+        date: date
       },
       raw: true
     });

@@ -18,7 +18,7 @@ import { Inventory } from './models/Inventory';
   Reservation.init({
     name: Sequelize.STRING,
     email: Sequelize.STRING,
-    date: Sequelize.DATE,
+    date: Sequelize.DATEONLY,
     time: Sequelize.STRING,
     size: Sequelize.INTEGER,
   },
